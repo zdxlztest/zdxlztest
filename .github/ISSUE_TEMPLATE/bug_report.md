@@ -1,9 +1,10 @@
 ---
 name: "🐛 Bug 报告"
-description: "报告 cqlib 的功能异常或错误"
+about: "报告 cqlib 的功能异常或错误"
 title: "[BUG] "
 labels: ["bug"]
 assignees: []
+
 ---
 
 ## Bug 描述
