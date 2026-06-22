@@ -1,36 +1,27 @@
 # cqlib CODEOWNERS 文件
-# 语法：<文件路径模式>  @<团队或用户名>
+# 语法：<文件路径模式>  @<组织名>/<团队名>
 # 说明：PR 涉及到对应路径的文件时，GitHub 会自动请求指定的团队或人员进行审核
+#
+# GitHub 团队引用格式：
+#   @zdxlzceshi-person/core-developers      → 研发团队
+#   @zdxlzceshi-person/community-operator    → 社区运营团队
+#   注意：团队名中有空格需用连字符代替（如 Community operator → community-operator）
+
+# ========== 核心代码仓库（codecore）==========
+# 由 core-developers 团队维护
+/codecore/                    @zdxlzceshi-person/core-developers
+/codecore/**                  @zdxlzceshi-person/core-developers
+
+# ========== 社区仓库（community）==========
+# 由 Community operator 团队维护
+/community/                   @zdxlzceshi-person/community-operator
+/community/**                 @zdxlzceshi-person/community-operator
+
+# ========== 组织级配置文件（兜底）==========
+# .github/ 目录下的 CI、模板等由两个团队共同审核
+/.github/                     @zdxlzceshi-person/core-developers @zdxlzceshi-person/community-operator
+/.github/**                   @zdxlzceshi-person/core-developers @zdxlzceshi-person/community-operator
 
 # ========== 默认规则 ==========
-# 所有文件（兜底）由核心维护团队审核
-*       @ctq-quantum/core-maintainers
-
-# ========== 核心模块 ==========
-# 量子电路核心
-/src/cqlib/circuit/           @ctq-quantum/circuit-team
-/src/cqlib/circuit/**         @ctq-quantum/circuit-team
-
-# 量子算法
-/src/cqlib/algorithms/        @ctq-quantum/algo-team
-/src/cqlib/algorithms/**      @ctq-quantum/algo-team
-
-# 模拟器后端
-/src/cqlib/simulator/         @ctq-quantum/simulator-team
-/src/cqlib/simulator/**       @ctq-quantum/simulator-team
-
-# ========== 文档 ==========
-/docs/                        @ctq-quantum/docs-team
-/docs/**                      @ctq-quantum/docs-team
-README.md                     @ctq-quantum/docs-team
-CONTRIBUTING.md               @ctq-quantum/core-maintainers
-
-# ========== 配置与 CI ==========
-/.github/                     @ctq-quantum/core-maintainers
-/.github/**                   @ctq-quantum/core-maintainers
-pyproject.toml                @ctq-quantum/core-maintainers
-setup.py                      @ctq-quantum/core-maintainers
-
-# ========== 测试 ==========
-/tests/                       @ctq-quantum/core-maintainers
-/tests/**                     @ctq-quantum/core-maintainers
+# 其他所有文件由研发团队兜底审核
+*                             @zdxlzceshi-person/core-developers
