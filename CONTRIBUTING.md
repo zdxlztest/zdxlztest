@@ -26,13 +26,13 @@
 
 cqlib 欢迎以下类型的贡献：
 
-| 贡献类型 | 方式 |
-|----------|------|
+| 贡献类型   | 方式                                                         |
+| ---------- | ------------------------------------------------------------ |
 | 🐛 报告 Bug | 使用 [Bug Report 模板](https://github.com/ctq-quantum/cqlib/issues/new?template=bug_report.md) 提交 Issue |
 | 💡 建议功能 | 使用 [Feature Request 模板](https://github.com/ctq-quantum/cqlib/issues/new?template=feature_request.md) 提交 Issue |
-| 🔧 提交代码 | Fork 仓库后提交 Pull Request |
-| 📖 改进文档 | 提交 PR 修改 `docs/` 目录下的文档 |
-| 🧪 添加测试 | 提交 PR 增加或改进测试用例 |
+| 🔧 提交代码 | Fork 仓库后提交 Pull Request                                 |
+| 📖 改进文档 | 提交 PR 修改 `docs/` 目录下的文档                            |
+| 🧪 添加测试 | 提交 PR 增加或改进测试用例                                   |
 | 💬 回答问题 | 前往 [Discussions](https://github.com/ctq-quantum/cqlib/discussions) 帮助其他用户 |
 
 > **新手友好**：查看带有 [`good first issue`](https://github.com/ctq-quantum/cqlib/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) 标签的 Issue，这些任务适合首次贡献者。
@@ -43,10 +43,10 @@ cqlib 欢迎以下类型的贡献：
 
 cqlib 采用以下分支策略：
 
-| 分支 | 用途 | 说明 |
-|------|------|------|
-| `main` | 稳定发布版 | 只接受来自 `develop` 的合并，不直接提交 |
-| `develop` | 开发主线 | **所有 PR 的目标分支**，新功能先合入此分支 |
+| 分支      | 用途       | 说明                                       |
+| --------- | ---------- | ------------------------------------------ |
+| `main`    | 稳定发布版 | 只接受来自 `develop` 的合并，不直接提交    |
+| `develop` | 开发主线   | **所有 PR 的目标分支**，新功能先合入此分支 |
 
 > **外部贡献者请注意**：请基于 `develop` 分支进行开发，PR 也请提交到 `develop` 分支。
 
@@ -103,12 +103,12 @@ git merge upstream/develop
 
 ### 分支命名
 
-| 类型 | 格式 | 示例 |
-|------|------|------|
-| 新功能 | `feat/简短描述` | `feat/add-grover-algorithm` |
+| 类型     | 格式                 | 示例                         |
+| -------- | -------------------- | ---------------------------- |
+| 新功能   | `feat/简短描述`      | `feat/add-grover-algorithm`  |
 | Bug 修复 | `fix/issue编号-描述` | `fix/42-circuit-depth-error` |
-| 文档改进 | `docs/简短描述` | `docs/update-install-guide` |
-| 测试改进 | `test/简短描述` | `test/add-qaoa-coverage` |
+| 文档改进 | `docs/简短描述`      | `docs/update-install-guide`  |
+| 测试改进 | `test/简短描述`      | `test/add-qaoa-coverage`     |
 
 > **注意**：分支请从 `develop` 创建，不要从 `main` 创建。
 
@@ -126,15 +126,15 @@ git merge upstream/develop
 
 **类型说明**：
 
-| 类型 | 含义 |
-|------|------|
-| `feat` | 新功能 |
-| `fix` | Bug 修复 |
-| `docs` | 文档改动 |
-| `test` | 测试相关 |
-| `refactor` | 代码重构（不改变行为）|
-| `perf` | 性能优化 |
-| `chore` | 构建/工具链改动 |
+| 类型       | 含义                   |
+| ---------- | ---------------------- |
+| `feat`     | 新功能                 |
+| `fix`      | Bug 修复               |
+| `docs`     | 文档改动               |
+| `test`     | 测试相关               |
+| `refactor` | 代码重构（不改变行为） |
+| `perf`     | 性能优化               |
+| `chore`    | 构建/工具链改动        |
 
 **示例**：
 
@@ -237,6 +237,53 @@ def my_function(param: int) -> bool:
 
 - 小型 PR（< 100 行）：Squash Merge（保持历史干净）
 - 大型 PR（> 100 行）：Rebase Merge
+
+### develop → main 发布流程
+
+外部贡献者的 PR 合并到 `develop` 后，代码会先在 `develop` 中进行集成验证。当积累足够多的变更、准备发布新版本时，由内部维护者执行以下操作：
+
+**方式一：在 GitHub 上提 PR（推荐，有审核记录）**
+
+1. 进入仓库 → **Pull requests** → **New pull request**
+2. `base` 选 `main`，`compare` 选 `develop`
+3. 标题填：`Release: vX.X.X`（填写本次版本号）
+4. 描述中列出本次发布包含的 PR 和变更要点
+5. 指定另一位内部维护者进行 Review
+6. Review 通过后，以 **Merge commit** 方式合并（保留 develop 的历史）
+7. 合并完成后打上版本 Tag：`git tag vX.X.X && git push origin vX.X.X`
+
+**方式二：本地命令行（快速）**
+
+```bash
+git checkout main
+git pull origin main
+git merge origin/develop
+git push origin main
+git tag vX.X.X
+git push origin vX.X.X
+```
+
+> 📌 **注意**：`main` 分支受保护，必须通过 PR 合并（方式一），方式二仅适用于有 Admin 权限的账号且已临时放行的情况。正式流程请使用方式一。
+
+---
+
+## Issue 处理流程（社区运营必读）
+
+cqlib 的 Issue 由**两个团队**共同处理，请按以下规则分类和分配：
+
+| Issue 类型 | 标签            | 负责团队               | 处理方式                           |
+| ---------- | --------------- | ---------------------- | ---------------------------------- |
+| 使用咨询   | `question`      | 社区运营团队           | 直接回复，解答后关闭               |
+| 文档问题   | `documentation` | 社区运营团队           | 由运营团队修改文档或指派文档负责人 |
+| Bug 报告   | `bug`           | 研发团队               | 指派给对应模块的研发负责人         |
+| 功能建议   | `enhancement`   | 研发团队（运营先评估） | 运营初步评估后转交研发评估可行性   |
+| 性能问题   | `perf`          | 研发团队               | 指派给性能优化负责人               |
+
+### 分配 Issue 的权限
+
+- **有 Write 权限的内部成员**（研发团队 + 社区运营团队）都可以分配 Issue
+- 建议由**社区运营统一做第一道分类**，避免重复分配或遗漏
+- 分配方法：打开 Issue → 右侧面板 **Assignees** → 输入用户名或团队名
 
 ---
 
